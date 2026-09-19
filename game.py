@@ -36,6 +36,12 @@ def calculate_score(max_attempts, attempts, difficulty):
 
     return max(score, 10)
 
+def update_high_score(high_score, current_score):
+    if current_score > high_score:
+        print(f"\n🏅 New High Score: {current_score}!")
+        return current_score
+    return high_score
+
 
 def play_game():
     difficulty, max_number, max_attempts = choose_difficulty()
@@ -96,6 +102,8 @@ def main():
 
     total_score = 0
     games_played = 0
+    high_score = 0
+    wins = 0
 
     while True:
         score = play_game()
@@ -103,9 +111,16 @@ def main():
         total_score += score
         games_played += 1
 
+        if score > 0:
+            wins += 1
+    
+        high_score = update_high_score(high_score, score)
+
         print("\n" + "-" * 40)
         print(f"Games Played: {games_played}")
+        print(f"Games Won: {wins}")
         print(f"Total Score: {total_score}")
+        print(f"High Score: {high_score}")
         print("-" * 40)
 
         while True:
@@ -117,6 +132,8 @@ def main():
                 print("\nThanks for playing! 👋")
                 print(f"Final Score: {total_score}")
                 print(f"Games Played: {games_played}")
+                print(f"Games Won: {wins}")
+                print(f"High Score: {high_score}")
                 return
             else:
                 print("Please enter 'y' or 'n'.")
